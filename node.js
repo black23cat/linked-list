@@ -1,3 +1,6 @@
-export default function log() {
-  console.log('test');
+export default class Node {
+  constructor(value, nextNode = null) {
+    this.value = value;
+    this.nextNode = nextNode;
+  }
 }
