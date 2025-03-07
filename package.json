@@ -1,0 +1,20 @@
+{
+  "name": "linked-list",
+  "version": "1.0.0",
+  "description": "Odin Project : Linked List",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/black23cat/linked-list.git"
+  },
+  "author": "black2cat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/black23cat/linked-list/issues"
+  },
+  "homepage": "https://github.com/black23cat/linked-list#readme"
+}
