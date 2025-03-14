@@ -3,24 +3,28 @@ import Node from './node.js';
 export default class LinkedList {
   constructor({ head = null } = {}) {
     this._head = head;
+    this._tail = this._head;
+    this._size = 0;
   }
 
   append(value) {
+    this._size++;
     if (this._head === null) {
       this._head = new Node(value);
+      this._tail = this._head;
       return;
     }
-
-    let currentNode = this._head;
-    while (currentNode.nextNode !== null) {
-      currentNode = currentNode.nextNode;
-    }
-    currentNode.nextNode = new Node(value);
+    const newNode = new Node(value);
+    this._tail.nextNode = newNode;
+    this._tail = newNode;
   }
 
   prepend(value) {
+    this._size++;
     if (this._head === null) {
       this._head = new Node(value);
+      this._tail = this._head;
+      return;
     } else {
       const currentHead = new Node(this._head.value, this._head.nextNode);
       this._head = new Node(value);
@@ -31,13 +35,7 @@ export default class LinkedList {
   size() {
     if (this._head === null) return 'List is empty.';
 
-    let size = 1;
-    let currentNode = this._head;
-    while (currentNode.nextNode !== null) {
-      currentNode = currentNode.nextNode;
-      size += 1;
-    }
-    return size;
+    return this._size;
   }
 
   head() {
@@ -46,15 +44,11 @@ export default class LinkedList {
 
   tail() {
     if (this._head === null) return 'List is empty';
-    let currentNode = this._head;
-    while (currentNode.nextNode !== null) {
-      currentNode = currentNode.nextNode;
-    }
-    return currentNode;
+    return this._tail;
   }
 
   at(index) {
-    if (index < 0) return 'Index out of bounds';
+    if (index < 0 || index > this._size) return 'Index out of bounds';
     if (this._head === null) {
       return 'List is empty';
     }
@@ -78,6 +72,8 @@ export default class LinkedList {
       currentNode = currentNode.nextNode;
     }
     currentNode.nextNode = null;
+    this._tail = currentNode;
+    this._size--;
   }
 
   contains(value) {
@@ -138,16 +134,14 @@ export default class LinkedList {
     const insertedNode = new Node(value);
     prevNode.nextNode = insertedNode;
     insertedNode.nextNode = nextNode;
+    this._size++;
   }
 
   removeAt(index) {
     const currentListSize = this.size();
-    if (
-      typeof currentListSize !== 'number' ||
-      index < 0 ||
-      index > currentListSize
-    )
-      return 'Index out of bounds';
+    if (index < 0 || index > currentListSize) return 'Index out of bounds';
+
+    this._size--;
     if (index === 0 && currentListSize - 1 === 0) {
       this._head = null;
       return;
